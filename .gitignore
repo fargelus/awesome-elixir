@@ -32,3 +32,4 @@ awesome_elixir-*.tar
 npm-debug.log
 /assets/node_modules/
 
+/.elixir_ls/
