@@ -1,10 +1,7 @@
-defmodule Mix.Tasks.AwesomeElixir.MdFetcher do
-  @moduledoc false
+defmodule AwesomeElixirWeb.MdFetcherJob do
   @md_url "https://raw.githubusercontent.com/h4cc/awesome-elixir/master/README.md"
 
-  use Mix.Task
-
-  def run(_) do
+  def run do
     HTTPoison.start
     {
       :ok,

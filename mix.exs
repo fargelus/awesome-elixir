@@ -50,7 +50,9 @@ defmodule AwesomeElixir.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:earmark, "~> 1.4"},
-      {:httpoison, "~> 1.8"}
+      {:httpoison, "~> 1.8"},
+      {:con_cache, "~> 0.13"},
+      {:quantum, "~> 3.0"}
     ]
   end
 

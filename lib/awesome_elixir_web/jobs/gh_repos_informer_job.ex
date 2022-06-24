@@ -1,8 +1,5 @@
-defmodule Mix.Tasks.AwesomeElixir.GhReposInformer do
-  @moduledoc false
+defmodule AwesomeElixirWeb.GhReposInformerJob do
   @api_repo_path "https://api.github.com/repos"
-
-  use Mix.Task
 
   def run(links) do
     parent_process = self()
