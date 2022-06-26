@@ -2,11 +2,10 @@ defmodule AwesomeElixirWeb.PageController do
   use AwesomeElixirWeb, :controller
 
   def index(conn, _params) do
-    html = ConCache.get(
-      AwesomeElixir.Const.Cache.name,
-      AwesomeElixir.Const.Cache.template_key
+    render(
+      conn,
+      "index.html",
+      content: File.read!(AwesomeElixir.Const.index_file_path())
     )
-
-    html(conn, html)
   end
 end

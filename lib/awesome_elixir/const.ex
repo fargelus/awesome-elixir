@@ -1,6 +1,5 @@
 defmodule AwesomeElixir.Const do
-  defmodule Cache do
-    def name, do: :cache
-    def template_key, do: :template
+  def index_file_path do
+    Application.app_dir(:awesome_elixir, "priv/static/index.html")
   end
 end

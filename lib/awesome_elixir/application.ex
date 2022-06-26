@@ -18,7 +18,6 @@ defmodule AwesomeElixir.Application do
       AwesomeElixirWeb.Endpoint,
       # Start a worker by calling: AwesomeElixir.Worker.start_link(arg)
       # {AwesomeElixir.Worker, arg}
-      {ConCache, [name: AwesomeElixir.Const.Cache.name, ttl_check_interval: false]},
       AwesomeElixir.Scheduler
     ]
 

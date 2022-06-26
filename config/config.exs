@@ -53,5 +53,5 @@ import_config "#{config_env()}.exs"
 
 config :awesome_elixir, AwesomeElixir.Scheduler,
   jobs: [
-    {"* * * * *",      {AwesomeElixirWeb.DataExtractorJob, :run, []}},
+    {"0 0 * * *",      {AwesomeElixirWeb.DataExtractorJob, :run, []}},
   ]
