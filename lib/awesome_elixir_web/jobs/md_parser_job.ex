@@ -5,12 +5,24 @@ defmodule AwesomeElixirWeb.MdParserJob do
 
     html
     |> cut_document
+    |> make_navigation
     |> updated_html_tree
     |> Floki.raw_html
   end
 
   defp cut_document(html) do
     Floki.find_and_update(html, "ul:first-of-type ~ *", fn _ -> :delete end)
+  end
+
+  defp make_navigation(html) do
+    Floki.find(html, "a[href^=\"#\"]")
+    |> Enum.reduce(html, fn link, html ->
+      {"a", [{"href", href}], [text]} = link
+
+      Floki.find_and_update(html, "h2:fl-contains('#{text}')", fn header ->
+        {"h2", [{"id", String.replace(href, ~r/^#/, "")}]}
+      end)
+    end)
   end
 
   defp updated_html_tree(html) do
@@ -30,6 +42,7 @@ defmodule AwesomeElixirWeb.MdParserJob do
   end
 
   defp parse_links(document) do
+    # ["https://github.com/stocks29/dlist"]
     document
     |> Floki.find("li a[href^=\"https://github.com\"]")
     |> Enum.map(fn anchor ->
