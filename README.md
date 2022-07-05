@@ -23,7 +23,7 @@ Visit [`localhost:4000`](http://localhost:4000) from your browser after installa
 
 ## Updates
 
-You should provide your [GitHub api token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) for daily updates.
+You should provide your [GitHub API token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) for daily updates.
 Create file `dev.secret.exs` under `config/` folder with following content:
 
 ```elixir
