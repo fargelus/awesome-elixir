@@ -1,19 +1,45 @@
 # AwesomeElixir
 
-To start your Phoenix server:
+HTML version of [`awesome-elixir`](https://github.com/h4cc/awesome-elixir)
+GitHub repo. Each library provided with additional info:
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+- Amount of total GitHub stars ⭐
+- 📅 Days from last push to repo
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Installation
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+Project built upon Phoenix - Elixir web framework.
+You need to install it first along with Elixir 🙂.<br>
+After that run:
 
-## Learn more
+```sh
+mix deps.get
+mix phx.server
+```
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+## Usage
+
+Visit [`localhost:4000`](http://localhost:4000) from your browser after installation.
+
+## Updates
+
+You should provide your [GitHub api token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) for daily updates.
+Create file `dev.secret.exs` under `config/` folder with following content:
+
+```elixir
+import Config
+
+config :github, api_token: <YOUR GITHUB TOKEN>
+```
+
+## App view
+
+App looks similar like this:
+
+<div>
+  <img alt="links" src="./doc/screen_1.png">
+</div>
+
+<div>
+  <img alt="navigation" src="./doc/screen_2.png">
+</div>

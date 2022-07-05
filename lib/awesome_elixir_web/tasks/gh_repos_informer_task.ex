@@ -42,7 +42,7 @@ defmodule AwesomeElixirWeb.GhReposInformerTask do
         info = Jason.decode!(body)
         gh_repo_request(info["url"])
 
-      {:ok, %HTTPoison.Response{status_code: 404}} -> nil
+      {:ok, _} -> nil
     end
   end
 
