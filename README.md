@@ -37,9 +37,11 @@ config :github, api_token: <YOUR GITHUB TOKEN>
 App looks similar like this:
 
 <div>
-  <img alt="links" src="./doc/screen_1.png">
+  <img alt="navigation" src="./doc/screen_2.png">
 </div>
 
 <div>
-  <img alt="navigation" src="./doc/screen_2.png">
+  <img alt="links" src="./doc/screen_1.png">
 </div>
+
+
