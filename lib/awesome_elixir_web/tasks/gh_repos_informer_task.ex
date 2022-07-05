@@ -1,4 +1,9 @@
 defmodule AwesomeElixirWeb.GhReposInformerTask do
+  @moduledoc """
+  Fetch requires repos info from GitHub API.
+  Prepare result as map like %{link: %{stars: 202, last_commit: 7}}.
+  """
+
   @api_repo_path "https://api.github.com/repos"
   @token Application.fetch_env!(:github, :api_token)
 

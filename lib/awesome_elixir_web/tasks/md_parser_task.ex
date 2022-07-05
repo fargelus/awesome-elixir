@@ -1,4 +1,11 @@
 defmodule AwesomeElixirWeb.MdParserTask do
+  @moduledoc """
+  Receive markdown as string, parse it to html
+  and update it with GitHub repos info.
+  """
+
+  @github_host "https://github.com"
+
   def run(markdown) do
     {:ok, raw_html, _} = markdown |> Earmark.as_html
     {:ok, html} = Floki.parse_document(raw_html)
@@ -43,7 +50,7 @@ defmodule AwesomeElixirWeb.MdParserTask do
 
   defp parse_links(document) do
     document
-    |> Floki.find("li a[href^=\"https://github.com\"]")
+    |> Floki.find("li a[href^=\"#{@github_host}\"]")
     |> Enum.map(fn anchor ->
       {"a", [{_, href}], _} = anchor
       href
