@@ -1,4 +1,4 @@
-defmodule AwesomeElixirWeb.MdFetcherJob do
+defmodule AwesomeElixirWeb.MdFetcherTask do
   @md_url "https://raw.githubusercontent.com/h4cc/awesome-elixir/master/README.md"
 
   def run do

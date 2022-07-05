@@ -55,3 +55,5 @@ config :awesome_elixir, AwesomeElixir.Scheduler,
   jobs: [
     {"0 0 * * *",      {AwesomeElixirWeb.DataExtractorJob, :run, []}},
   ]
+
+import_config "dev.secret.exs"
