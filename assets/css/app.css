@@ -1,6 +1,21 @@
 /* This file is for your main application CSS */
 @import "./phoenix.css";
 
+.outdated {
+  color: gray;
+}
+
+.outdated a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+nav ul {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+}
+
 /* Alerts and form errors used by phx.new */
 .alert {
   padding: 15px;
