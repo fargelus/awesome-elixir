@@ -38,26 +38,32 @@ defmodule AwesomeElixirWeb.MdParserTask do
     repos_info = AwesomeElixirWeb.GhReposInformerTask.run(links)
 
     Enum.reduce(repos_info, html, fn {url, data}, html ->
+      %{stars: stars, last_commit: days} = data
+
       Floki.traverse_and_update(html, fn
-        {"li", [], [{"a", [{"href", ^url}], text}, desc]} ->
-          %{stars: stars, last_commit: days} = data
-          {
-            "li", html_link_attrs(days),
-            [
-              {"a", [{"href", url}], text},
-               desc,
-               star_tag(stars),
-               commit_tag(days)
-            ]
-          }
+        {"li", [], children} ->
+          link = Enum.at(children, 0)
+          case link do
+            {"a", [{"href", ^url}], _} ->
+              updated_children = [
+                link,
+                star_tag(stars),
+                commit_tag(days),
+                Enum.slice(children, 1..-1)
+              ]
+
+              {"li", html_link_attrs(days), List.flatten(updated_children)}
+
+            _ -> {"li", [], children}
+          end
 
         other -> other
       end)
     end)
   end
 
-  defp star_tag(stars), do: {"span", [], ["#{stars} ⭐"]}
-  defp commit_tag(days), do: {"span", [], ["📅 #{days} days ago"]}
+  defp star_tag(stars), do: {"span", [{"class", "gh-repo-info"}], ["#{stars} ⭐"]}
+  defp commit_tag(days), do: {"span", [{"class", "gh-repo-info"}], ["📅 #{days} days ago"]}
 
   defp html_link_attrs(days) do
     if days >= @outdated_days, do: [{"class", "outdated"}], else: []

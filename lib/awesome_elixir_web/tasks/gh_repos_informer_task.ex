@@ -1,33 +1,37 @@
 defmodule AwesomeElixirWeb.GhReposInformerTask do
   @moduledoc """
   Fetch requires repos info from GitHub API.
-  Prepare result as map like %{link: %{stars: 202, last_commit: 7}}.
+  Prepare result as map like %{
+    "https://github.com/fargelus/awesome-elixir": %{stars: 202, last_commit: 7}
+  }.
   """
 
   @api_repo_path "https://api.github.com/repos"
   @token Application.fetch_env!(:github, :api_token)
-  @gh_api_timeout 10000
 
   def run(links) do
     HTTPoison.start
 
-    tasks = Enum.map(links, fn link ->
-      Task.async(fn ->
+    links_tasks = Enum.into(links, %{}, fn link ->
+      task = Task.async(fn ->
         path = URI.parse(link) |> Map.fetch!(:path)
         gh_repo_request("#{@api_repo_path}#{path}")
       end)
+
+      {link, task}
     end)
 
-    Task.await_many(tasks, @gh_api_timeout)
-    |> Enum.reject(&is_nil/1)
-    |> Enum.into(%{}, fn response ->
+    links_tasks
+    |> Enum.into(%{}, fn {link, task} -> {link, Task.await(task)} end)
+    |> Enum.reject(fn {_, response} -> is_nil(response) end)
+    |> Enum.into(%{}, fn {link, response} ->
       {:ok, dt, _} = DateTime.from_iso8601(response["pushed_at"])
       data = %{
         stars: response["stargazers_count"],
         last_commit: days_from_commit(dt)
       }
 
-      {response["html_url"], data}
+      {link, data}
     end)
   end
 

@@ -10,6 +10,11 @@
   text-decoration: underline;
 }
 
+.gh-repo-info {
+  margin-left: 5px;
+  display: inline-block;
+}
+
 nav ul {
   display: flex;
   justify-content: space-between;
