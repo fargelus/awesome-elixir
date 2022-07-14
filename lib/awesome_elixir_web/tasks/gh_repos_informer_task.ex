@@ -6,6 +6,7 @@ defmodule AwesomeElixirWeb.GhReposInformerTask do
 
   @api_repo_path "https://api.github.com/repos"
   @token Application.fetch_env!(:github, :api_token)
+  @gh_api_timeout 10000
 
   def run(links) do
     HTTPoison.start
@@ -17,7 +18,7 @@ defmodule AwesomeElixirWeb.GhReposInformerTask do
       end)
     end)
 
-    Task.await_many(tasks, 10000)
+    Task.await_many(tasks, @gh_api_timeout)
     |> Enum.reject(&is_nil/1)
     |> Enum.into(%{}, fn response ->
       {:ok, dt, _} = DateTime.from_iso8601(response["pushed_at"])
