@@ -62,7 +62,7 @@ defmodule AwesomeElixirWeb.MdParserTask do
     end)
   end
 
-  defp star_tag(stars), do: {"span", [{"class", "gh-repo-info"}], ["#{stars} ⭐"]}
+  defp star_tag(stars), do: {"span", [{"class", "gh-repo-info gh-repo-stars"}], ["#{stars} ⭐"]}
   defp commit_tag(days), do: {"span", [{"class", "gh-repo-info"}], ["📅 #{days} days ago"]}
 
   defp html_link_attrs(days) do

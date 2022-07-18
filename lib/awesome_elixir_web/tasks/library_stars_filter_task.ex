@@ -7,21 +7,25 @@ defmodule AwesomeElixirWeb.LibraryStarsFilterTask do
   def run(min_stars) do
     tmpl = File.read!(AwesomeElixir.Const.index_file_path())
     doc = Floki.parse_document!(tmpl)
-    filter_by_stars(doc, min_stars) |> Floki.raw_html
+
+    items_for_remove = removed_items(doc, min_stars)
+    Floki.traverse_and_update(doc, fn node ->
+      if Enum.member?(items_for_remove, node), do: nil, else: node
+    end)
+    |> Floki.raw_html
   end
 
-  defp filter_by_stars(doc, min_stars) do
-    Floki.traverse_and_update(doc, fn node ->
-      case node do
-        {"li", _, [_, _, {"span", [], [stars_info]}, _]} ->
-          try do
-            {stars, " ⭐"} = Integer.parse(stars_info)
-            if stars < min_stars, do: nil, else: node
-          rescue
-            MatchError -> node
-          end
+  defp removed_items(doc, min_stars) do
+    Floki.find(doc, "li")
+    |> Enum.filter(fn node ->
+      html = Floki.raw_html(node)
+      stars_node = Floki.find(html, ".gh-repo-stars")
+                   |> Enum.at(0)
 
-        _ -> node
+      if is_tuple(stars_node) do
+        {_, _, [stars_info]} = stars_node
+        {stars, " ⭐"} = Integer.parse(stars_info)
+        stars < min_stars
       end
     end)
   end
