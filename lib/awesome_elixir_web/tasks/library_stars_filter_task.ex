@@ -17,15 +17,17 @@ defmodule AwesomeElixirWeb.LibraryStarsFilterTask do
 
   defp removed_items(doc, min_stars) do
     Floki.find(doc, "li")
+    |> Enum.filter(fn item -> Floki.find(item, "a[href^=\"#\"]") == [] end)
     |> Enum.filter(fn node ->
-      html = Floki.raw_html(node)
-      stars_node = Floki.find(html, ".gh-repo-stars")
+      stars_node = Floki.find(node, ".gh-repo-stars")
                    |> Enum.at(0)
 
       if is_tuple(stars_node) do
         {_, _, [stars_info]} = stars_node
         {stars, " ⭐"} = Integer.parse(stars_info)
         stars < min_stars
+      else
+        true
       end
     end)
   end

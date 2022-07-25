@@ -52,7 +52,7 @@ defmodule AwesomeElixirWeb.MdParserTask do
                 Enum.slice(children, 1..-1)
               ]
 
-              {"li", html_link_attrs(days), List.flatten(updated_children)}
+              {"li", list_item_attrs(days), List.flatten(updated_children)}
 
             _ -> {"li", [], children}
           end
@@ -65,7 +65,7 @@ defmodule AwesomeElixirWeb.MdParserTask do
   defp star_tag(stars), do: {"span", [{"class", "gh-repo-info gh-repo-stars"}], ["#{stars} ⭐"]}
   defp commit_tag(days), do: {"span", [{"class", "gh-repo-info"}], ["📅 #{days} days ago"]}
 
-  defp html_link_attrs(days) do
+  defp list_item_attrs(days) do
     if days >= @outdated_days, do: [{"class", "outdated"}], else: []
   end
 
