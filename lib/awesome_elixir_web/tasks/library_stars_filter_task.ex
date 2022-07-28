@@ -12,6 +12,7 @@ defmodule AwesomeElixirWeb.LibraryStarsFilterTask do
     Floki.traverse_and_update(doc, fn node ->
       if Enum.member?(items_for_remove, node), do: nil, else: node
     end)
+    |> rm_empty_categories
     |> Floki.raw_html
   end
 
@@ -30,5 +31,26 @@ defmodule AwesomeElixirWeb.LibraryStarsFilterTask do
         true
       end
     end)
+  end
+
+  defp rm_empty_categories(doc) do
+    indexes = empty_categories_indexes(doc)
+
+    Enum.with_index(doc)
+    |> Enum.reject(fn {_, index} -> Enum.member?(indexes, index) end)
+    |> Enum.map(fn {node, _} -> node end)
+  end
+
+  defp empty_categories_indexes(doc) do
+    Enum.with_index(doc)
+    |> Enum.map(fn {node, index} ->
+      case node do
+        {"ul", [], []} -> [index - 2, index - 1, index]
+
+        _ -> nil
+      end
+    end)
+    |> Enum.filter(&is_list/1)
+    |> List.flatten
   end
 end
