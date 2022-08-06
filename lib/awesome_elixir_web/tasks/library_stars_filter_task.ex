@@ -13,6 +13,7 @@ defmodule AwesomeElixirWeb.LibraryStarsFilterTask do
       if Enum.member?(items_for_remove, node), do: nil, else: node
     end)
     |> rm_empty_categories
+    |> rm_navigation
     |> Floki.raw_html
   end
 
@@ -52,5 +53,19 @@ defmodule AwesomeElixirWeb.LibraryStarsFilterTask do
     end)
     |> Enum.filter(&is_list/1)
     |> List.flatten
+  end
+
+  defp rm_navigation(doc) do
+    Floki.traverse_and_update(doc, fn
+      {"li", [], [{"a", [{"href", href}], heading}]} = node ->
+        if String.match?(href, ~r/^#/) do
+          header = Floki.find(doc, "h2:fl-contains(\"#{heading}\")")
+          if header == [], do: nil, else: node
+        else
+          node
+        end
+
+      other -> other
+    end)
   end
 end
