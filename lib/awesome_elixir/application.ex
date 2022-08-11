@@ -1,6 +1,4 @@
 defmodule AwesomeElixir.Application do
-  # See https://hexdocs.pm/elixir/Application.html
-  # for more information on OTP Applications
   @moduledoc false
 
   use Application
@@ -8,10 +6,6 @@ defmodule AwesomeElixir.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Start the Ecto repository
-      AwesomeElixir.Repo,
-      # Start the Telemetry supervisor
-      AwesomeElixirWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: AwesomeElixir.PubSub},
       # Start the Endpoint (http/https)
