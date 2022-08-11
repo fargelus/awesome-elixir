@@ -21,6 +21,12 @@ mix phx.server
 
 Visit [`localhost:4000`](http://localhost:4000) from your browser after installation.
 
+## Features
+
+- Shows [Elixir awesomness](https://github.com/h4cc/awesome-elixir) in HTML
+- Sorting libraries by GitHub stars
+- Shows list of most relevant/popular libraries
+
 ## Updates
 
 You should provide your [GitHub API token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) for daily updates.
