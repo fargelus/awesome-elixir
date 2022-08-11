@@ -10,6 +10,22 @@ defmodule AwesomeElixirWeb.PageController do
     )
   end
 
+  def index(conn, %{"relevant" => ""}) do
+    render(
+      conn,
+      "index.html",
+      content: AwesomeElixirWeb.RelevantLibsTask.run
+    )
+  end
+
+  def index(conn, %{"popular" => ""}) do
+    render(
+      conn,
+      "index.html",
+      content: AwesomeElixirWeb.PopularLibsTask.run
+    )
+  end
+
   def index(conn, _params) do
     render(
       conn,

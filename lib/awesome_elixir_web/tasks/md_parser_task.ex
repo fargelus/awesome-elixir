@@ -63,7 +63,7 @@ defmodule AwesomeElixirWeb.MdParserTask do
   end
 
   defp star_tag(stars), do: {"span", [{"class", "gh-repo-info gh-repo-stars"}], ["#{stars} ⭐"]}
-  defp commit_tag(days), do: {"span", [{"class", "gh-repo-info"}], ["📅 #{days} days ago"]}
+  defp commit_tag(days), do: {"span", [{"class", "gh-repo-info gh-repo-date"}], ["📅 #{days} days ago"]}
 
   defp list_item_attrs(days) do
     if days >= @outdated_days, do: [{"class", "outdated"}], else: []
