@@ -7,9 +7,6 @@
 # General application configuration
 import Config
 
-config :awesome_elixir,
-  ecto_repos: [AwesomeElixir.Repo]
-
 # Configures the endpoint
 config :awesome_elixir, AwesomeElixirWeb.Endpoint,
   url: [host: "localhost"],
@@ -56,4 +53,4 @@ config :awesome_elixir, AwesomeElixir.Scheduler,
     {"0 0 * * *",      {AwesomeElixirWeb.DataExtractorJob, :run, []}},
   ]
 
-import_config "#{config_env()}.secret.exs"
+import_config "dev.secret.exs"
