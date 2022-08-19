@@ -10,14 +10,28 @@ defmodule AwesomeElixirWeb.PageControllerTest do
   describe "GET /?popular" do
     test "has most popular lib", %{conn: conn} do
       conn = get(conn, "/", %{"popular" => ""})
-      expected = "<span class=\"gh-repo-info gh-repo-stars\">#{Enum.max(repos_stars())} ⭐</span>"
-      assert html_response(conn, 200) =~ expected
+      assert html_response(conn, 200) =~ build_star_html(Enum.max(repos_stars()))
     end
 
     test "hasn't less popular lib", %{conn: conn} do
       conn = get(conn, "/", %{"popular" => ""})
-      not_expected = "<span class=\"gh-repo-info gh-repo-stars\">#{Enum.min(repos_stars())} ⭐</span>"
-      assert !(html_response(conn, 200) =~ not_expected)
+      assert !(
+        html_response(conn, 200) =~ build_star_html(Enum.min(repos_stars()))
+      )
+    end
+  end
+
+  describe "GET /?relevant" do
+    test "has most relevant lib", %{conn: conn} do
+      conn = get(conn, "/", %{"relevant" => ""})
+      assert html_response(conn, 200) =~ build_date_html(Enum.min(repos_dates()))
+    end
+
+    test "hasn't very old lib", %{conn: conn} do
+      conn = get(conn, "/", %{"relevant" => ""})
+      assert !(
+        html_response(conn, 200) =~ build_date_html(Enum.max(repos_dates()))
+      )
     end
   end
 end
