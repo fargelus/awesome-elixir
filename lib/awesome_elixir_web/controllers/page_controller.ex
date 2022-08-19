@@ -30,7 +30,7 @@ defmodule AwesomeElixirWeb.PageController do
     render(
       conn,
       "index.html",
-      content: File.read!(AwesomeElixir.Const.index_file_path())
+      content: AwesomeElixir.Const.index_file_template()
     )
   end
 end

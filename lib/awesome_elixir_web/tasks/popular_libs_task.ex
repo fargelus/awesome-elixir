@@ -6,8 +6,7 @@ defmodule AwesomeElixirWeb.PopularLibsTask do
   @amount 20
 
   def run do
-    tmpl = File.read!(AwesomeElixir.Const.index_file_path())
-    doc = Floki.parse_document!(tmpl)
+    doc = Floki.parse_document!(AwesomeElixir.Const.index_file_template())
 
     [
       {"h3", [], ["#{@amount} most popular repos"]},

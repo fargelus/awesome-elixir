@@ -5,8 +5,9 @@ defmodule AwesomeElixirWeb.LibraryStarsFilterTask do
   """
 
   def run(min_stars) do
-    tmpl = File.read!(AwesomeElixir.Const.index_file_path())
-    doc = Floki.parse_document!(tmpl)
+    doc = Floki.parse_document!(
+      AwesomeElixir.Const.index_file_template()
+    )
 
     items_for_remove = removed_items(doc, min_stars)
     Floki.traverse_and_update(doc, fn node ->

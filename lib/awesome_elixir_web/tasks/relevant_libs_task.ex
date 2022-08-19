@@ -6,8 +6,7 @@ defmodule AwesomeElixirWeb.RelevantLibsTask do
   @amount 10
 
   def run do
-    tmpl = File.read!(AwesomeElixir.Const.index_file_path())
-    doc = Floki.parse_document!(tmpl)
+    doc = Floki.parse_document!(AwesomeElixir.Const.index_file_template())
 
     [
       {"h3", [], ["#{@amount} latest repos update"]},
