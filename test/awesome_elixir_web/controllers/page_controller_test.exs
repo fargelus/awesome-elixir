@@ -34,4 +34,12 @@ defmodule AwesomeElixirWeb.PageControllerTest do
       )
     end
   end
+
+  describe "GET /?min-stars" do
+    test "has limited stars", %{conn: conn} do
+      conn = get(conn, "/", %{"min-stars" => 100})
+      stars = repos_stars(html_response(conn, 200))
+      assert Enum.all?(stars, fn star -> star >= 100 end)
+    end
+  end
 end

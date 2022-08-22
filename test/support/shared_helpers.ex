@@ -3,8 +3,8 @@ defmodule AwesomeElixirWeb.SharedHelpers do
     AwesomeElixir.Const.index_file_template()
   end
 
-  def repos_stars do
-    Floki.find(html_template(), ".gh-repo-stars")
+  def repos_stars(html \\ html_template()) do
+    Floki.find(html, ".gh-repo-stars")
     |> Enum.map(fn node ->
       {star, " ⭐"} = Integer.parse(Floki.text(node))
       star
